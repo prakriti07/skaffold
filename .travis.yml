@@ -15,22 +15,46 @@ jobs:
   include:
     - os: linux
       name: "linters"
+      arch: amd64
       script:
         - make linters
     - os: linux
+      name: "linters"
+      arch: arm64
+      script:
+        - make linters    
+    - os: linux
       name: "checks"
+      arch: amd64
       script:
         - make checks
       cache:
         directories:
           - $HOME/.cache/go-build
     - os: linux
+      name: "checks"
+      arch: arm64
+      script:
+        - make checks
+      cache:
+        directories:
+          - $HOME/.cache/go-build      
+    - os: linux
       name: "Linux unit"
+      arch: amd64
       script:
         - make coverage
       cache:
         directories:
           - $HOME/.cache/go-build
+    - os: linux
+      name: "Linux unit"
+      arch: arm64
+      script:
+        - make coverage
+      cache:
+        directories:
+          - $HOME/.cache/go-build      
     - os: osx
       name: "OSX unit"
       script:
@@ -47,6 +71,7 @@ jobs:
           - C:\\Users\\travis\\AppData\\Local\\go-build
     - os: linux
       name: "integration partition 0"
+      arch: amd64
       language: minimal
       script:
         - env IT_PARTITION=0 make integration-in-kind
@@ -56,7 +81,19 @@ jobs:
           - $HOME/.gradle
           - $HOME/.m2
     - os: linux
+      name: "integration partition 0"
+      arch: arm64
+      language: minimal
+      script:
+        - env IT_PARTITION=0 make integration-in-kind
+      cache:
+        directories:
+          - $HOME/.cache/go-build
+          - $HOME/.gradle
+          - $HOME/.m2      
+    - os: linux
       name: "integration partition 1"
+      arch: amd64
       language: minimal
       script:
         - env IT_PARTITION=1 make integration-in-kind
@@ -66,7 +103,19 @@ jobs:
           - $HOME/.gradle
           - $HOME/.m2
     - os: linux
+      name: "integration partition 1"
+      arch: arm64
+      language: minimal
+      script:
+        - env IT_PARTITION=1 make integration-in-kind
+      cache:
+        directories:
+          - $HOME/.cache/go-build
+          - $HOME/.gradle
+          - $HOME/.m2      
+    - os: linux
       name: "integration partition 2"
+      arch: amd64
       language: minimal
       script:
         - env IT_PARTITION=2 make integration-in-kind
@@ -76,8 +125,20 @@ jobs:
           - $HOME/.gradle
           - $HOME/.m2
     - os: linux
+      name: "integration partition 2"
+      arch: arm64
+      language: minimal
+      script:
+        - env IT_PARTITION=2 make integration-in-kind
+      cache:
+        directories:
+          - $HOME/.cache/go-build
+          - $HOME/.gradle
+          - $HOME/.m2      
+    - os: linux
       name: "integration partition 3"
       language: minimal
+      arch: amd64
       script:
         - env IT_PARTITION=3 make integration-in-kind
       cache:
@@ -86,12 +147,32 @@ jobs:
           - $HOME/.gradle
           - $HOME/.m2
     - os: linux
+      name: "integration partition 3"
+      language: minimal
+      arch: arm64
+      script:
+        - env IT_PARTITION=3 make integration-in-kind
+      cache:
+        directories:
+          - $HOME/.cache/go-build
+          - $HOME/.gradle
+          - $HOME/.m2      
+    - os: linux
       name: "diag/Linux unit"
+      arch: amd64
       script:
         - make -f Makefile.diag coverage
       cache:
         directories:
           - $HOME/.cache/go-build
+    - os: linux
+      name: "diag/Linux unit"
+      arch: arm64
+      script:
+        - make -f Makefile.diag coverage
+      cache:
+        directories:
+          - $HOME/.cache/go-build      
     - os: osx
       name: "diag/OSX unit"
       script:
